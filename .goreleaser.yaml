@@ -1,7 +1,17 @@
 version: 2
 project_name: owctl
 builds:
-- env: [CGO_ENABLED=0]
+- env:
+  - CGO_ENABLED=0
+  - GO111MODULE=on
+  ldflags:
+  - -s
+  - -w
+  - -X github.com/stannum-l/owctl/cmd.GoVersion={{ .Version }}
+  - -X github.com/stannum-l/owctl/cmd.Date={{ .CommitDate }}
+  - -X github.com/stannum-l/owctl/cmd.GitCommit={{ .Version }}
+  - -X github.com/stannum-l/owctl/cmd.Version={{ .Version }}
+  - -X github.com/stannum-l/owctl/cmd.OsType ={{ .Os }}
   goos:
   - linux
   - windows
@@ -18,3 +28,7 @@ dockers:
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
+changelog:
+  skip: true
+release:
+  prerelease: auto
