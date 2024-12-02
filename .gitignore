@@ -1,0 +1,8 @@
+vendor/
+dist/
+build/
+bin/
+
+*.test
+*.out
+.env
